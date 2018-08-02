@@ -5,7 +5,8 @@ from bson.objectid import ObjectId
 
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = 'task_manager'
-app.config["MONGO_URI"] = 'mongodb://admin:admin@ds123926.mlab.com:23926/task_manager'
+app.config["MONGO_URI"] = 'mongodb://admin:1Diploma1Diploma@ds255260.mlab.com:55260/task_manager'
+
 
 mongo = PyMongo(app) #that's called a Constructor Method
 
