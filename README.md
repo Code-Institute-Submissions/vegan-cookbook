@@ -13,3 +13,9 @@ sudo pip3 install flask_pymongo
 https://materializecss.com/
 https://cdnjs.com/libraries/jquery
 https://google.github.io/material-design-icons/
+
+# IMPORTANT
+materializecss.com provides different versions of their code examples!
+I'm using the base_lms.html because it contains the right CND version which
+runs the retrospective version of all Forms, Buttons and Icons.
+base_lms.html  && addtask.html
