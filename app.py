@@ -17,9 +17,9 @@ def get_tasks():
     tasks=mongo.db.tasks.find())
 
 
-# @app.route('/')
-# def hello():
-#     return "Hello World ...again"
+@app.route('/add_task')
+def add_task():
+    return render_template("addtask.html")
     
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
