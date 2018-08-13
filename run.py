@@ -67,8 +67,13 @@ def get_categories():
     categories=mongo.db.categories.find()) 
 
 
-
+    
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
         port=int(os.environ.get('PORT')),
         debug=True)
+
+
+categories.hmtl
+<a href="{{url_for('delete_category', category_id =category._id)}}" class="waves-effect waves-light btn btn_small">Del</a>
+<a href="{{url_for('edit_category', category_id =category._id)}}" class="waves-effect waves-light btn btn_small blue">Edit</a>
