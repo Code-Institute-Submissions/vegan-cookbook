@@ -13,7 +13,7 @@ mongo = PyMongo(app) #that's called a Constructor Method
 @app.route('/')
 @app.route('/get_tasks')
 def get_tasks():
-    return render_template("tasks1.html", 
+    return render_template("tasks.html", 
     tasks=mongo.db.tasks.find())
 
 @app.route('/add_task')
@@ -29,6 +29,12 @@ def insert_task():
     return redirect(url_for('get_tasks'))
 
 
+@app.route('/edit_task/<task_id>')
+def edit_task(task_id):
+    the_task =  mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+    all_categories =  mongo.db.categories.find()
+    return render_template('edittask.html', task=the_task, categories=all_categories)
+    
     
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
