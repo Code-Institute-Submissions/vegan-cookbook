@@ -8,27 +8,27 @@ app.config["MONGO_DBNAME"] = 'task_manager'
 app.config["MONGO_URI"] = 'mongodb://admin:1Diploma1Diploma@ds255260.mlab.com:55260/task_manager'
 
 
-mongo = PyMongo(app) #that's called a Constructor Method
+mongo = PyMongo(app)
 
 @app.route('/')
 @app.route('/get_tasks')
 def get_tasks():
     return render_template("tasks1.html", 
     tasks=mongo.db.tasks.find())
-
+    
+    
 @app.route('/add_task')
 def add_task():
     return render_template('addtask.html',
     categories=mongo.db.categories.find())
-
+    
     
 @app.route('/insert_task', methods=['POST'])
 def insert_task():
     tasks =  mongo.db.tasks
     tasks.insert_one(request.form.to_dict())
     return redirect(url_for('get_tasks'))
-
-
+    
     
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
