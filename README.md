@@ -1,11 +1,25 @@
 # Task Manager app using Flask and MongoDB
-
 Mini Project - Wal Through
+
+# Deployed on Heroku
+https://annies-task-manager.herokuapp.com/
+
 
 # putting everything in place
 sudo pip3 install Flask
-
 sudo pip3 install flask_pymongo
+
+pip3 freeze --local > requirements.txt
+echo web: python app.py > Procfile
+
+[heroku login]
+
+heroku ps:scale web=1
+
+[git push heroku master]
+
+
+
 
 
 
@@ -37,3 +51,7 @@ request.form.get('category_name')
 You can supply a second argument to the get function which becomes the 
 'default' value if the dictionary (in this case request.form is a dictionary) 
 doesn't contain the first argument.
+
+
+# Where am I?
+git remote -v
