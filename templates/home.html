@@ -1,5 +1,4 @@
 {% extends 'base.html'%} {% block content %}
-<p>Home, selection Container</p>
 
 <div class="selectioncontainer">
     <div class="container">
@@ -15,7 +14,7 @@
                             <p>Start your day right with a delicious breakfast</p>
                         </div>
                         <div class="card-action">
-                            <a href="{{url_for('recipes_by_category', category_name=category_name)}}">all Breakfasts</a>
+                            <a href="{{url_for('all_recipes')}}">all Breakfasts</a>
                         </div>
                     </div>
                 </div>    

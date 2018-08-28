@@ -14,7 +14,8 @@ app.config["MONGO_URI"] = 'mongodb://coffeeipsum:1Diploma1Diploma@ds225382.mlab.
 mongo = PyMongo(app)
 
 
-# --------------------- Home / Landing Page ---------------------------------- 
+# --------------------- Home / Landing Page ------------------------------
+
 @app.route('/')
 @app.route('/home')
 def home():
@@ -36,7 +37,6 @@ def recipes_by_category(category_name):
     #category_display_name = category_name.replace('_', ' ').title()
     return render_template(
         "recipes_by_category.html", 
-        category_name=mongo.db.recipes.category_name.find({"category_name": category_name}),
         recipes=mongo.db.recipes.find({"category_name": category_name}),
         categories=mongo.db.categories.find()
     )
@@ -66,7 +66,7 @@ def edit_recipe(recipe_id):
 @app.route('/update_recipe/<recipe_id>', methods=["POST"])
 def update_recipe(recipe_id):
     recipes = mongo.db.recipes
-    recipes.update( {'_id': ObjectId(recipe_id)},
+    recipes.updateOne( {'_id': ObjectId(recipe_id)},
     {
         'category_name':request.form.get('category_name'),
         'recipe_name':request.form.get('recipe_name'),
@@ -99,18 +99,6 @@ def add_author():
     return render_template('addauthor.html')    
 
 
-"""    
-# Not sure if I need this one at all since I don't do edit or delete???  
-@app.route('/update_author/<author_id>', methods=['POST'])
-def update_author(author_id):
-    authors = mongo.db.authors
-    authors.update({'_id': ObjectId(author_id)},
-    {
-        'author_name': request.form.get('author_name')
-    })
-    return redirect(url_for('home'))
-"""
-    
 
 @app.route('/insert_author', methods=['POST'])
 def insert_author():
@@ -123,48 +111,14 @@ def insert_author():
 
 # --------------------- Categories ----------------------------------    
 
+""" I replaced this with 'Home'
 
 @app.route('/get_categories')
 def get_categories():
     return render_template('categories.html',
     categories=mongo.db.categories.find()) 
 
-
-@app.route('/edit_category/<category_id>')
-def edit_category(category_id):
-    return render_template('editcategory.html',
-    category=mongo.db.categories.find_one({'_id': ObjectId(category_id)}))
-
-    
-# REPAIRED the request.form.get()   
-@app.route('/update_category/<category_id>', methods=['POST'])
-def update_category(category_id):
-    categories = mongo.db.categories
-    categories.update({'_id': ObjectId(category_id)},
-    {
-        'category_name': request.form.get('category_name')
-    })
-    return redirect(url_for('get_categories'))
-
-
-
-@app.route('/delete_category/<category_id>')  
-def delete_category(category_id):
-    mongo.db.categories.remove({'_id': ObjectId(category_id)})
-    return redirect(url_for("get_categories"))
-    
-
-@app.route('/insert_category', methods=['POST'])
-def insert_category():
-    categories = mongo.db.categories
-    category_doc = {'category_name': request.form.get('category_name')}
-    categories.insert_one(category_doc)
-    return redirect(url_for('get_categories'))
-    
-@app.route('/new_category')
-def new_category():
-    return render_template('addcategory.html')    
-
+"""
 
 
 if __name__ == '__main__':

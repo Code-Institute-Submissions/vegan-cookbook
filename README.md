@@ -2,7 +2,7 @@
 Welcome to my little "Vegan Cookbook".
 
 Visit my live website here:
-https://annies-cookbook.herokuapp.com/
+https://vegan-cookbook.herokuapp.com/
 
 
 ## Getting Started
@@ -60,27 +60,18 @@ First Load:
 
 ## Manual Testing
 
-- Ensure initial page load is correct, with list of hiscores shown
-- Try entering an empty username, see that an error is shown
-- Try entering a taken username from hiscore list, see that an error is shown
-- Try entering a valid username, see that the game progresses to the first riddle and that username is shown in page header with 0 score
-- Answer first riddle with blank answer, see error message and 1 retry
-- Answer first riddle with incorrect answer, see error message and no retry, and that game moves to next riddle
-- Answer second riddle with correct answer, see success message, next riddle loaded, and score in page header is incremented by 1
-- Try loading homepage again at this point, see that you are redirected back to the start of the riddle game with same username, score reset to 0
-- Complete game, see that all riddles in json file are asked, answering questions with variations on casing (upper case, lower case, etc.), 
-- Checked if score increments successfully with each correct answer,
-- Checked if game successfully redirects to '/gameover' after last riddle
-- On gameover, see that success message is displayed, that score and username are added to hiscores list
-- After gameover, try to load /riddles, see that session has been cleared and new username input is required, redirected to homepage
+- used Developer Tools in browser to test smaller view-ports and mobile responsiveness
+- Try to create a new recipe and enter an empty username, see that an error is shown
+- Try to create a new recipe and enter a taken username, see that an error is shown
+- Try to create a new recipe and enter a valid username, see that the new recipe is saved with the new author name
+- Try to create a new recipe and click on the Author drop down button, find the newly added author
+
 
 
 ## Known Limitations/Issues
 
-- Player can hit refresh after getting correct answer and get awarded more points - could be solved by tracking whether user has already played this riddle or not.
-- Method of writing hiscores to a file is vulnerable to problems where two users write to that file at the same time, and one of their changes are lost. 
-- No way of re-using your old username to play another game
-- Players can go directly to gameover at any point by adding '/gameover' to the URL, which clears their session and stores their score
+- Users are not able to upload images on (new) receipe creation - since MongoDB is a document-oriented database, there is no way to store image files in MongoDB
+- because there is no user authentication and verification, I decided to not make a edit/delete Author button available for my users
 - Using CSS3 animations not displayed on older browsers (although they aren't important to the functionality of the game)
 
 
