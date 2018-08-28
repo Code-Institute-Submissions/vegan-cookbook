@@ -1,63 +1,126 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for
+from datetime import datetime
+from flask import Flask, render_template, redirect, request, url_for, session
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
-app = Flask(__name__)
-app.config["MONGO_DBNAME"] = 'task_manager'
-app.config["MONGO_URI"] = 'mongodb://admin:1Diploma1Diploma@ds255260.mlab.com:55260/task_manager'
+app = Flask(__name__, static_url_path='/static')
+app.config["MONGO_DBNAME"] = 'anniescookbook'
+app.config["MONGO_URI"] = 'mongodb://coffeeipsum:1Diploma1Diploma@ds225382.mlab.com:25382/anniescookbook'
+#mongodb://<dbuser>:<dbpassword>@ds225382.mlab.com:25382/anniescookbook
 
 
-mongo = PyMongo(app) #that's called a Constructor Method
 
+mongo = PyMongo(app)
+
+
+# --------------------- Home / Landing Page ---------------------------------- 
 @app.route('/')
-@app.route('/get_tasks')
-def get_tasks():
-    return render_template("tasks.html", 
-    tasks=mongo.db.tasks.find())
+@app.route('/home')
+def home():
+    return render_template("home.html", 
+    recipes=mongo.db.recipes.find())
 
-@app.route('/add_task')
-def add_task():
-    return render_template('addtask.html',
-    categories=mongo.db.categories.find())
 
+
+# --------------------- Recipes ---------------------------------- 
+
+@app.route('/all_recipes')
+def all_recipes():
+    return render_template("recipes.html", 
+    recipes=mongo.db.recipes.find())
+
+
+@app.route('/recipes_by_category/<category_name>')
+def recipes_by_category(category_name):
+    #category_display_name = category_name.replace('_', ' ').title()
+    return render_template(
+        "recipes_by_category.html", 
+        category_name=mongo.db.recipes.category_name.find({"category_name": category_name}),
+        recipes=mongo.db.recipes.find({"category_name": category_name}),
+        categories=mongo.db.categories.find()
+    )
+
+@app.route('/add_recipe')
+def add_recipe():
+    return render_template('addrecipe.html',
+    categories=mongo.db.categories.find(),
+    authors=mongo.db.authors.find())
+
+
+@app.route('/insert_recipe', methods=['POST'])
+def insert_recipe():
+    recipes =  mongo.db.recipes
+    recipes.insert_one(request.form.to_dict())
+    return redirect(url_for('all_recipes'))
     
-@app.route('/insert_task', methods=['POST'])
-def insert_task():
-    tasks =  mongo.db.tasks
-    tasks.insert_one(request.form.to_dict())
-    return redirect(url_for('get_tasks'))
-
-
-@app.route('/edit_task/<task_id>')
-def edit_task(task_id):
-    the_task =  mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+    
+@app.route('/edit_recipe/<recipe_id>')
+def edit_recipe(recipe_id):
+    the_recipe =  mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     all_categories =  mongo.db.categories.find()
-    return render_template('edittask.html', task=the_task, categories=all_categories)
+    return render_template('editrecipe.html', recipe=the_recipe, categories=all_categories,
+    authors = mongo.db.authors.find())
     
     
-@app.route('/update_task/<task_id>', methods=["POST"])
-def update_task(task_id):
-    tasks = mongo.db.tasks
-    tasks.update( {'_id': ObjectId(task_id)},
+@app.route('/update_recipe/<recipe_id>', methods=["POST"])
+def update_recipe(recipe_id):
+    recipes = mongo.db.recipes
+    recipes.update( {'_id': ObjectId(recipe_id)},
     {
-        'task_name':request.form.get('task_name'),
         'category_name':request.form.get('category_name'),
-        'task_description': request.form.get('task_description'),
-        'due_date': request.form.get('due_date'),
-        'is_urgent': request.form.get('is_urgent')
+        'recipe_name':request.form.get('recipe_name'),
+        'ingredients': request.form.get('ingredients'),
+        'recipe_description': request.form.get('recipe_description'),
+        'preparation_time': request.form.get('preparation_time'),
+        'allergens': request.form.get('allergens'),
+        'author_name': request.form.get('author_name'),
+        'tags': request.form.get('tags')
     })
-    return redirect(url_for('get_tasks'))
+    return redirect(url_for('all_recipes'))
     
     
-@app.route('/delete_task/<task_id>')
-def delete_task(task_id):
-    mongo.db.tasks.remove({'_id': ObjectId(task_id)})
-    return redirect(url_for('get_tasks'))
+@app.route('/delete_recipe/<recipe_id>')
+def delete_recipe(recipe_id):
+    mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
+    return redirect(url_for('all_recipes'))
  
  
  
     
+# --------------------- NEW : Authors ----------------------------------    
+
+# FYI: there's no overview page with All Authors
+# FYI: there's no edit button for Authors
+# FYI: there's no delete button for Authors
+
+@app.route('/add_author')
+def add_author():
+    return render_template('addauthor.html')    
+
+
+"""    
+# Not sure if I need this one at all since I don't do edit or delete???  
+@app.route('/update_author/<author_id>', methods=['POST'])
+def update_author(author_id):
+    authors = mongo.db.authors
+    authors.update({'_id': ObjectId(author_id)},
+    {
+        'author_name': request.form.get('author_name')
+    })
+    return redirect(url_for('home'))
+"""
+    
+
+@app.route('/insert_author', methods=['POST'])
+def insert_author():
+    authors = mongo.db.authors
+    author_doc = {'author_name': request.form.get('author_name')}
+    authors.insert_one(author_doc)
+    return redirect(url_for('home'))
+    
+
+
 # --------------------- Categories ----------------------------------    
 
 
@@ -100,7 +163,9 @@ def insert_category():
     
 @app.route('/new_category')
 def new_category():
-    return render_template('addcategory1.html')    
+    return render_template('addcategory.html')    
+
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

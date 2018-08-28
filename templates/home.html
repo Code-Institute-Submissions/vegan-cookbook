@@ -1,0 +1,57 @@
+{% extends 'base.html'%} {% block content %}
+<p>Home, selection Container</p>
+
+<div class="selectioncontainer">
+    <div class="container">
+        <div class="row">
+            <div class="z-depth-5">
+                <div class="col s12 m6 l4">
+                    <div class="card small">
+                        <div class="card-image">
+                            <img src="/static/img/bf1.png">
+                            <span class="card-title">Breakfast</span>
+                        </div>
+                        <div class="card-content">
+                            <p>Start your day right with a delicious breakfast</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="{{url_for('recipes_by_category', category_name=category_name)}}">all Breakfasts</a>
+                        </div>
+                    </div>
+                </div>    
+                
+                <div class="col s12 m6 l4">
+                    <div class="card small">
+                        <div class="card-image">
+                            <img src="/static/img/mc.png">
+                            <span class="card-title">Main Course</span>
+                        </div>
+                        <div class="card-content">
+                            <p>Nurish your body with a healthy main course</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="{{url_for('all_recipes')}}">all Main Courses</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col s12 m6 l4">
+                    <div class="card small">
+                        <div class="card-image">
+                            <img src="/static/img/dessert2.png">
+                            <span class="card-title">Desserts</span>
+                        </div>
+                        <div class="card-content">
+                            <p>Treat yourself! You desverve it</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="{{url_for('all_recipes')}}">all Desserts</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /row -->
+    </div>    
+</<div>         
+
+{% endblock %}
