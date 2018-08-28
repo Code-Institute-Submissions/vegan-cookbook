@@ -14,7 +14,7 @@
                             <p>Start your day right with a delicious breakfast</p>
                         </div>
                         <div class="card-action">
-                            <a href="{{url_for('all_recipes')}}">all Breakfasts</a>
+                            <a href="{{url_for('recipes_by_category', category_name='breakfast')}}">all Breakfasts</a>
                         </div>
                     </div>
                 </div>    
@@ -26,10 +26,10 @@
                             <span class="card-title">Main Course</span>
                         </div>
                         <div class="card-content">
-                            <p>Nurish your body with a healthy main course</p>
+                            <p>Nourish your body with a healthy main course</p>
                         </div>
                         <div class="card-action">
-                            <a href="{{url_for('all_recipes')}}">all Main Courses</a>
+                            <a href="{{url_for('recipes_by_category', category_name='main course')}}">all Main Courses</a>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                             <p>Treat yourself! You desverve it</p>
                         </div>
                         <div class="card-action">
-                            <a href="{{url_for('all_recipes')}}">all Desserts</a>
+                            <a href="{{url_for('recipes_by_category', category_name='dessert')}}">all Desserts</a>
                         </div>
                     </div>
                 </div>

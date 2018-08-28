@@ -7,6 +7,10 @@ header nav {
     background-color: green;
 }
 
+nav .brand-logo {
+    font-size: 22px;
+}
+
 
 .btn_small {
     height: 24px;
@@ -21,11 +25,3 @@ header nav {
 }
 
 
-/*
-.selectioncontainer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
-*/
