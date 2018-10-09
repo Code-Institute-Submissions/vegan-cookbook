@@ -2,12 +2,16 @@
 
 <div class="selectioncontainer">
     <div class="container">
+        <h4>Welcome to Annie's vegan cookbook!</h4>
+        <p>Please click on the card to select the food category of your choice.</p>
         <div class="row">
             <div class="z-depth-5">
                 <div class="col s12 m6 l4">
                     <div class="card small">
                         <div class="card-image">
-                            <img src="/static/img/bf1.png">
+                            <a href="{{url_for('recipes_by_category', category_name='breakfast')}}">
+                                <img src="/static/img/bf1.png">
+                            </a>    
                             <span class="card-title">Breakfast</span>
                         </div>
                         <div class="card-content">
@@ -22,7 +26,9 @@
                 <div class="col s12 m6 l4">
                     <div class="card small">
                         <div class="card-image">
-                            <img src="/static/img/mc.png">
+                            <a href="{{url_for('recipes_by_category', category_name='main course')}}">
+                                <img src="/static/img/mc.png">
+                            </a>
                             <span class="card-title">Main Course</span>
                         </div>
                         <div class="card-content">
@@ -37,7 +43,9 @@
                 <div class="col s12 m6 l4">
                     <div class="card small">
                         <div class="card-image">
-                            <img src="/static/img/dessert2.png">
+                            <a href="{{url_for('recipes_by_category', category_name='dessert')}}">
+                                <img src="/static/img/dessert2.png">
+                            </a>
                             <span class="card-title">Desserts</span>
                         </div>
                         <div class="card-content">

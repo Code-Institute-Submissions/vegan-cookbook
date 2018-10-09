@@ -2,7 +2,7 @@
 <div class="container">
     <h5>Edit Recipe</h5>
     <div class="row">
-        <form action="{{ url_for('insert_recipe') }}" method="POST" class="col s12">
+        <form action="{{ url_for('update_recipe', recipe_id=recipe_id ) }}" method="POST" class="col s12">
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">folder_special</i>
@@ -69,21 +69,12 @@
                             </select>
                     </div>
                 </div>    
-                
-      
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">label_outline</i>
-                        <input id="tags" name="tags" type="text" value="{{recipe.tags}}">
-                        <label for="icon_prefix">Tags</label>
-                    </div>
-                </div>
             
                 <div class="row">
                     <button class="btn waves-effect waves-light green" type="submit" name="action">Edit recipe
                         <i class="material-icons right">playlist_add</i>
                     </button>
-                    <a href="{{ url_for('home') }}" class="waves-effect waves-light btn grey">
+                    <a href="{{ url_for('all_recipes') }}" class="waves-effect waves-light btn grey">
                         <i class="material-icons right">cancel</i>Cancel
                     </a> 
                 </div>
